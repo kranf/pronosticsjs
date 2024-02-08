@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "scrapData": "ts-node --env-file=.env scripts/scrap-data"
+    "scrapData": "node --env-file=.env --require ts-node/register scripts/scrap-data"
   },
   "author": "",
   "license": "ISC",
