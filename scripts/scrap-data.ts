@@ -12,8 +12,12 @@ const db = dbClient.db(dbName);
 
 const scrappedDataService = new ScrappedDataService(db)
 
-pmuClient.getProgramOfTheDay(startDate).then((program) => {
-    scrappedDataService.saveProgram(program, startDate);
-    console.log(scrappedDataService.getProgram(startDate));
-    process.exit()
+async function scrapData() {
+    const program = await pmuClient.getProgramOfTheDay(startDate)
+    await scrappedDataService.saveProgram(program, startDate);
+    console.log(await scrappedDataService.getProgram(startDate));
+}
+
+scrapData().then(() => process.exit()).catch((err) => {
+    console.log(err);
 })
