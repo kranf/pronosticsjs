@@ -1,6 +1,10 @@
 import { MongoClient } from "mongodb";
 import { PmuApiClient } from "../src/pmu-api.client";
 import { ScrappedDataService } from "../src/scrapped-data.service";
+import { setLogger } from "../src/set-logger";
+import winston from "winston";
+
+setLogger();
 
 const startDate = process.argv[2]
 const pmuClient = new PmuApiClient();
@@ -19,5 +23,5 @@ async function scrapData() {
 }
 
 scrapData().then(() => process.exit()).catch((err) => {
-    console.log(err);
+    winston.error(err);
 })
