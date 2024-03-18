@@ -1,7 +1,6 @@
+import { Program } from "./data-scrapping/program.model"
+
 const BASE_URL = 'https://online.turfinfo.api.pmu.fr/rest/client'
-const PROGRM_URL = 'https://online.turfinfo.api.pmu.fr/rest/client/1/programme/{}?meteo=true&specialisation=INTERNET'
-const PARTICIPANT_URL = 'https://online.turfinfo.api.pmu.fr/rest/client/1/programme/{}/R{}/C{}/participants?specialisation=INTERNET'
-const DETAILED_PERF_URL = 'https://online.turfinfo.api.pmu.fr/rest/client/2/programme/{}/R{}/C{}/performances-detaillees/pretty'
 
 export class PmuApiClient {
     /**
@@ -9,9 +8,9 @@ export class PmuApiClient {
      * @param normalDate format expected to be ddMMyyyy
      * e.g. 3112020 => 31st december 2020
     */
-    public async getProgramOfTheDay(normalDate: string): Promise<Record<string, any>> {
+    public async getProgramOfTheDay(normalDate: string): Promise<Program> {
         const url = `${BASE_URL}/1/programme/${normalDate}?meteo=true&specialisation=INTERNET`
-        return (await this.fetchBodyAsJson<{programme: Record<string, any>}>(url)).programme; 
+        return (await this.fetchBodyAsJson<{programme: Program}>(url)).programme; 
     }
 
     /**
