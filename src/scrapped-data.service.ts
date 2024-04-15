@@ -1,5 +1,6 @@
 import { Db, Document, ObjectId } from "mongodb";
 
+const LATEST_SCRAPPING_COLLECTION_NAME = 'latestScrapping'
 const PROGRAM_COLLECTION_NAME = 'program';
 const PARTICIPANTS_COLLECTION_NAME = 'participants';
 const PARTICIPANTS_DETAILED_PERF_COLLECTION_NAME = 'detailed_perf';
@@ -7,6 +8,7 @@ const PROGRAM_NORMAL_DATE_PROP = 'normalDate';
 const RACE_PMU_ID_PROP = 'racePmuId';
 
 export class ScrappedDataService {
+    private readonly latestScrappingCollection;
     private readonly programCollection;
     private readonly participantsCollection;
     private readonly participantsDetailedPerfCollection;
@@ -17,7 +19,7 @@ export class ScrappedDataService {
         this.participantsCollection = db.collection(PARTICIPANTS_COLLECTION_NAME);
         this.participantsCollection.createIndex(RACE_PMU_ID_PROP)
         this.participantsDetailedPerfCollection = db.collection(PARTICIPANTS_DETAILED_PERF_COLLECTION_NAME);
-
+        this.latestScrappingCollection = db.collection<{latest: string}>(LATEST_SCRAPPING_COLLECTION_NAME);
     }
 
     public async saveProgram(programDoc: Document, programNormalDate: string): Promise<ObjectId> {
@@ -63,7 +65,23 @@ export class ScrappedDataService {
     
     public async getParticipantsDetailedPerfForRace(racePmuId: string) {
         return this.participantsCollection.findOne({[RACE_PMU_ID_PROP]: racePmuId});
-    }    
+    }
+
+    public async setLatestScrappingDate(date: Date) {
+        const current = await this.getLatestScrappingDate()
+        if(current && current >= date) {
+            return;
+        }
+        return this.latestScrappingCollection.insertOne({latest: date.toISOString()})
+    }
+
+    public async getLatestScrappingDate(): Promise<Date|undefined> {
+        const results = await this.latestScrappingCollection.find().toArray()
+        if (results.length = 0) {
+            return;
+        }
+        return new Date(results[0].latest);
+    }
 }
 
 function buildPmuId(normalDate: string, meetingId: string, raceId: string): string {
