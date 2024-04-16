@@ -11,6 +11,7 @@ export interface Meeting {
 
 export interface Race {
     numOrdre: string;
-
+    numReunion: string;
+    libelle: string;
 }
 
