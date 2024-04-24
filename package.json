@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "node --test --require ts-node/register $(find test -name *.test.ts)",
     "scrapData": "node --env-file=.env --require ts-node/register scripts/scrap-data"
   },
   "author": "",
