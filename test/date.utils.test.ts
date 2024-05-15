@@ -1,5 +1,5 @@
 import test, { describe, it } from "node:test";
-import { fromNormalDate, toNormalDate } from '../src/date.utils';
+import { DateIterable, fromNormalDate, toNormalDate } from '../src/date.utils';
 import assert from 'node:assert';
 
 describe('date.utils', () => {
@@ -36,4 +36,15 @@ describe('date.utils', () => {
         assert.equal(backAndForthDate, normalDate)
     })
     
+    describe('DateIterable', () => {
+        it('should be iterable through ellipsis operator', () => {
+            const startDate = '03032020';
+            const endDate = '05032020';
+            const dateIterator = new DateIterable(startDate, endDate)
+            
+            const results = [...dateIterator];
+            assert.equal(results[0], startDate)
+            assert.equal(results[results.length - 1], endDate)
+        });
+    })
 })
