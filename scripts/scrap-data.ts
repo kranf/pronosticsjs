@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
-import { PmuApiClient } from "../src/pmu-api.client";
-import { ScrappedDataService } from "../src/scrapped-data.service";
-import { setLogger } from "../src/set-logger";
+import { PmuApiClient } from "../src/pmu-api.client.js";
+import { ScrappedDataService } from "../src/scrapped-data.service.js";
+import { setLogger } from "../src/set-logger.js";
 import winston from "winston";
 import pMap from "p-map";
 

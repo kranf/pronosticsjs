@@ -2,21 +2,25 @@
   "name": "pronosticsjs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "exports": "./index.js",
   "scripts": {
-    "test": "node --test --require ts-node/register $(find test -name *.test.ts)",
-    "scrapData": "node --env-file=.env --require ts-node/register scripts/scrap-data"
+    "test": "node --test --loader ts-node/esm  $(find test -name *.test.ts)",
+    "scrapData": "node  --env-file=.env --loader ts-node/esm scripts/scrap-data.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^20.11.6",
+    "@types/node": "^20.12.13",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "mongodb": "^6.3.0",
-    "p-map": "^7.0.1",
+    "p-map": "^7.0.2",
     "winston": "^3.11.0"
   }
 }

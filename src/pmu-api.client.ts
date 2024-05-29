@@ -1,4 +1,4 @@
-import { Program } from "./data-scrapping/program.model"
+import { Program } from "./data-scrapping/program.model.js"
 
 const BASE_URL = 'https://online.turfinfo.api.pmu.fr/rest/client'
 

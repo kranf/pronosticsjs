@@ -1,5 +1,5 @@
 import test, { describe, it } from "node:test";
-import { DateIterable, fromNormalDate, toNormalDate } from '../src/date.utils';
+import { DateIterable, fromNormalDate, toNormalDate } from '../src/date.utils.js';
 import assert from 'node:assert';
 
 describe('date.utils', () => {
