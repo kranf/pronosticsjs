@@ -28,7 +28,7 @@ export class DateIterable implements Iterable<NormalDate> {
     }
 }
 
-class DateIterator implements Iterator<NormalDate, undefined> {
+class DateIterator implements Iterator<NormalDate> {
     private currentDate: Date;
     private readonly endDate: Date;
     constructor(_startDate: NormalDate, _endDate: NormalDate) {
@@ -38,9 +38,6 @@ class DateIterator implements Iterator<NormalDate, undefined> {
 
     next() {
         const done = this.currentDate > this.endDate;
-        if (done) {
-            return { done, value: undefined }
-        }
         const ret = {
             done,
             value: toNormalDate(this.currentDate),
