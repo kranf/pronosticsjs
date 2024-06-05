@@ -38,6 +38,13 @@ npm run scrapDate
 ```
 A start date might be specified, the latest scrapping date is used otherwise.
 
+Connect to mongoDB
+```
+docker exec -it mongo-prono mongosh
+use pronosticsjs
+
+```
+
 ## Data Modeling
 
 The raw data are structured and persisted in RDMS database using ORM.
