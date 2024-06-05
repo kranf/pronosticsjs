@@ -1,4 +1,5 @@
 import { Db, Document, ObjectId } from "mongodb";
+import { NormalDate } from './date.utils.js';
 
 const LATEST_SCRAPPING_COLLECTION_NAME = 'latestScrapping'
 const PROGRAM_COLLECTION_NAME = 'program';
@@ -67,20 +68,9 @@ export class ScrappedDataService {
         return this.participantsCollection.findOne({[RACE_PMU_ID_PROP]: racePmuId});
     }
 
-    public async setLatestScrappingDate(date: Date) {
-        const current = await this.getLatestScrappingDate()
-        if(current && current >= date) {
-            return;
-        }
-        return this.latestScrappingCollection.insertOne({latest: date.toISOString()})
-    }
-
-    public async getLatestScrappingDate(): Promise<Date|undefined> {
-        const results = await this.latestScrappingCollection.find().toArray()
-        if (results.length = 0) {
-            return;
-        }
-        return new Date(results[0].latest);
+    public async getLatestScrappingDate(): Promise<NormalDate|undefined> {
+        const latest = await this.programCollection.find({}).sort({'date': -1}).limit(1).toArray();
+        return latest[0][PROGRAM_NORMAL_DATE_PROP];
     }
 }
 
