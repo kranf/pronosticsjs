@@ -1,12 +1,12 @@
 export interface Program {
     [key: string]: any;
-    reunions: Meeting[]; 
+    reunions: Meeting[];
 }
 
 export interface Meeting {
     numOfficiel: string;
     courses: Race[];
-    hippodrome: { libelleLong: string }
+    hippodrome: { libelleLong: string };
 }
 
 export interface Race {
@@ -14,4 +14,3 @@ export interface Race {
     numReunion: string;
     libelle: string;
 }
-
