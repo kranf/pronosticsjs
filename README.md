@@ -21,14 +21,6 @@ Machine is trained and is able to predict next winners :)))
 
 ## Data scrapping
 Raw data are stored as document in mongoDB.
-MongoDB is built from docker image.
-Data themselves are stored locally on filesystem and maybe comitted later for backup.
-
-Start the docker as follow:
-```
-docker build .
-./start-mongodb-docker.sh
-```
 
 Your mongoDB will be listening on localhost:27017
 
@@ -40,9 +32,8 @@ A start date might be specified, the latest scrapping date is used otherwise.
 
 Connect to mongoDB
 ```
-docker exec -it mongo-prono mongosh
+docker exec -it <container-name> mongosh
 use pronosticsjs
-
 ```
 
 ## Data Modeling
@@ -52,6 +43,19 @@ The raw data are structured and persisted in RDMS database using ORM.
 There is a script to load raw data from mongo. The mongo DB must be running.
 
 End date is optional. It falls back on the current day.  
+
+
+## Dev env
+
+Databases are made available through docker compose.
+Secrets are injected through files expected to found in .secrets directory. One file by secret.
+Look at compose.yaml>secrets to check what files are expected to be provided.
+
+```
+docker compose up -d
+
+docker compose stop
+```
 
 ## Data features
 

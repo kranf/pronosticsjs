@@ -1,0 +1,36 @@
+services:
+  mongodb:
+    image: mongo:latest
+    ports: 
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+  
+  mysqldb:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: pronosticsjs
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql-root-pwd
+      MYSQL_USER_FILE: /run/secrets/pronosticsjs-db-user
+      MYSQL_PASSWORD_FILE: /run/secrets/pronosticsjs-db-pwd
+    ports: 
+      - "3306:3306"
+      - "8080:8080"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    secrets:
+      - mysql-root-pwd
+      - pronosticsjs-db-user
+      - pronosticsjs-db-pwd
+
+volumes:
+  mongo-data:
+  mysql-data:
+
+secrets:
+  mysql-root-pwd:
+    file: ./.secrets/mysql-root-pwd
+  pronosticsjs-db-user:
+    file: ./.secrets/pronosticsjs-db-user
+  pronosticsjs-db-pwd:
+    file: ./.secrets/pronosticsjs-db-pwd
