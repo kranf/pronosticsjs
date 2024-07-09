@@ -48,8 +48,7 @@ End date is optional. It falls back on the current day.
 ## Dev env
 
 Databases are made available through docker compose.
-Secrets are injected through files expected to found in .secrets directory. One file by secret.
-Look at compose.yaml>secrets to check what files are expected to be provided.
+
 
 ```
 docker compose up -d
