@@ -11,7 +11,10 @@
         "lint": "eslint --ignore-path .eslintignore --ext .ts",
         "format": "prettier --ignore-path .eslintignore --write \"**/*.+(js|ts|json)\"",
         "test": "node --test --loader ts-node/esm  $(find test -name *.test.ts)",
-        "scrapData": "node  --env-file=.env --loader ts-node/esm scripts/scrap-data.ts"
+        "scrapData": "node  --env-file=.env --loader ts-node/esm scripts/scrap-data.ts",
+        "importData": "node  --env-file=.env --loader ts-node/esm scripts/import-to-db.ts",
+        "drz:generate": "drizzle-kit generate",
+        "drz:migrate": "drizzle-kit migrate"
     },
     "author": "",
     "license": "ISC",

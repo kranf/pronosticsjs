@@ -41,9 +41,22 @@ use pronosticsjs
 The raw data are structured and persisted in RDMS database using ORM.
 
 There is a script to load raw data from mongo. The mongo DB must be running.
+```
+npm run importData
+```
 
-End date is optional. It falls back on the current day.  
+End date is optional. It falls back on the current day.
 
+### Drizzle ORM
+
+Database is set up using Drizzle CLI.
+Each time the model change, the database must reflect those changes.
+scripts are available:
+
+```
+npm run drz:generate
+npm run drz:migrate
+```
 
 ## Dev env
 
