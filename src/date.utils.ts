@@ -1,6 +1,13 @@
+/**
+ *
+ * Expected format to be ddMMyyyy
+ * e.g. 31122020 => 31st december 2020
+ */
 export type NormalDate = string;
+
 const ONE_DAY_IN_MS = 86400000; // 24*60*60*1000
-export function toNormalDate(date: Date): string {
+
+export function toNormalDate(date: Date): NormalDate {
     return `${date.getDate().toString().padStart(2, '0')}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getFullYear()}`;
 }
 
