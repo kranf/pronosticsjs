@@ -38,7 +38,9 @@ async function scrapData() {
 
 async function scrapProgramOfDay(normalDate: NormalDate) {
     winston.info(`Scrapping program ${normalDate}`);
-    const program = await pmuClient.getProgramOfTheDay(normalDate);
+    const program = await pmuClient.getProgramOfTheDay(normalDate).catch((error) => {
+        winston.error
+    });
     await scrappedDataService.saveProgram(program, normalDate);
 
     const everyRaces = program.reunions.flatMap((meeting) => meeting.courses);

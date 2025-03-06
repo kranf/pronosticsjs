@@ -1,10 +1,11 @@
+import winston from 'winston';
 import { Program } from './data-scrapping/program.model.js';
 import { NormalDate } from './date.utils.js';
 
 const BASE_URL = 'https://online.turfinfo.api.pmu.fr/rest/client';
 
 export class PmuApiClient {
-    
+
     public async getProgramOfTheDay(normalDate: NormalDate): Promise<Program> {
         const url = `${BASE_URL}/1/programme/${normalDate}?meteo=true&specialisation=INTERNET`;
         return (await this.fetchBodyAsJson<{ programme: Program }>(url)).programme;
@@ -29,6 +30,10 @@ export class PmuApiClient {
     }
 
     private fetchBodyAsJson<T>(url: string): Promise<T> {
-        return fetch(url).then((response) => response.json());
+        return fetch(url).then((response) => response.json() as T)
+            .catch((error) => {
+                winston.error(`Error fetching url: ${url}`)
+                throw error
+            });
     }
 }
