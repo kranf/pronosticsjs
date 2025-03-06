@@ -1,6 +1,7 @@
 import { Db, Document, ObjectId } from 'mongodb';
 import { NormalDate } from './date.utils.js';
 import { RacePmuId } from './type.js';
+import { Program } from './data-scrapping/program.model.js';
 
 const LATEST_SCRAPPING_COLLECTION_NAME = 'latestScrapping';
 const PROGRAM_COLLECTION_NAME = 'program';
@@ -34,8 +35,8 @@ export class ScrappedDataService {
         }
     }
 
-    public async getProgram(normalDate: string) {
-        return this.programCollection.findOne({ normalDate: normalDate });
+    public async getProgram(normalDate: NormalDate): Promise<Program|null> {
+        return this.programCollection.findOne<Program>({ normalDate: normalDate });
     }
 
     public async saveParticipants(
