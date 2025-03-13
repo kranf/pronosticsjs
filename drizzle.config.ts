@@ -11,5 +11,5 @@ export default defineConfig({
         user: 'root',
         password: process.env.MYSQL_ROOT_PASSWORD,
         database: process.env.DB_NAME!,
-    }
+    },
 });
